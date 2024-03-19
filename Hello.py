@@ -1,51 +1,32 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
 from streamlit.logger import get_logger
+from streamlit_qrcode_scanner import qrcode_scanner
 
 LOGGER = get_logger(__name__)
 
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="QRコードスキャン",
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# QRコードスキャン 👋")
 
-    st.sidebar.success("Select a demo above.")
+    st.sidebar.success("オマケのデモです。\n選択してください。")
 
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+    st.markdown("マイナンバーカードの裏のQRコートを撮影し必要事項を入力してください。")
+    st.image("/workspaces/streamlit-qr/9284b-546x346.png")
 
+    qr_code = qrcode_scanner(key='qrcode_scanner')
+
+    name = st.text_input('名前', '氏名')
+
+    container = st.container(border=True)
+    if qr_code:
+        container.write("読み取り番号: " , qr_code)
+    container.write('名前: ', name)
+    container.button("登録", type="primary")
 
 if __name__ == "__main__":
     run()
