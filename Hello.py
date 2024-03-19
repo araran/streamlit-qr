@@ -24,8 +24,9 @@ def run():
 
     container = st.container(border=True)
     if qr_code:
-        container.write("読み取り番号: " , qr_code)
-    container.write('名前: ', name)
+        container.write("読み取り番号: " + qr_code)
+    if name:
+        container.write('名前: '+ name)
     container.button("登録", type="primary")
 
 if __name__ == "__main__":
