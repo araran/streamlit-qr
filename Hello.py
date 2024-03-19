@@ -16,7 +16,7 @@ def run():
     st.sidebar.success("オマケのデモです。\n選択してください。")
 
     st.markdown("マイナンバーカードの裏のQRコートを撮影し必要事項を入力してください。")
-    st.image("/workspaces/streamlit-qr/9284b-546x346.png")
+    st.image("9284b-546x346.png")
 
     qr_code = qrcode_scanner(key='qrcode_scanner')
 
